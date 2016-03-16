@@ -9,8 +9,10 @@ require([
         'entels/ScadaServiceFacade',
         'entels/ObjectsLayer',
         'pages/entels_map/' + application_lang,
+        'dojo/topic',
+        'entels/VisibleObjectsTable',
         'dojo/domReady!'],
-    function (Map, LayersInfo, NgwServiceFacade, ScadaServiceFacade, ObjectsLayer, translates) {
+    function (Map, LayersInfo, NgwServiceFacade, ScadaServiceFacade, ObjectsLayer, translates, topic) {
             // Создаем и конфигурируем фасад к сервисам NGW
         var ngwServiceFacade = new NgwServiceFacade(proxyNgwUrl),
             // Задаем фасад к сервисам Scada
@@ -98,6 +100,10 @@ require([
             });
 
             map.addVectorLayer(l, 'Объекты');
+
+            L.easyButton('<img class="icon-show-in-bbox" src="' + application_root + '/static/images/bbox_16x16.png">', function(btn, map){
+                topic.publish('entels/open/visible-objects-table', l);
+            }).addTo(map._lmap);
 
             // Скрываем иконку загрузки
             map.hideLoader();
