@@ -28,6 +28,9 @@ define([
 
                 return xhr(this._ngwUrlBase + url, {
                     handleAs: 'json',
+                    headers: {
+                        "X-Requested-With": null
+                    },
                     method: 'GET',
                     query: params
                 });
@@ -38,7 +41,10 @@ define([
 
                 return xhr(this._ngwUrlBase + url, {
                     handleAs: 'json',
-                    method: 'GET'
+                    method: 'GET',
+                    headers: {
+                        "X-Requested-With": null
+                    }
                 });
             }
         });
