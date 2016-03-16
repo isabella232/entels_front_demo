@@ -2,6 +2,7 @@ define([
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
+    'dojo/topic',
     'dojo/request/xhr',
     'dojo/i18n',
     'dojo/Deferred',
@@ -11,8 +12,9 @@ define([
     'entels/ParametersVerification',
     'mustache/mustache',
     'dojo/text!entels/templates/' + application_lang + '/Tooltip.html',
-    'dojo/text!entels/templates/' + application_lang + '/AttributesPopup.html'
-], function (declare, lang, array, xhr, i18n, Deferred, string, obj, StyledGeoJsonLayer,
+    'dojo/text!entels/templates/' + application_lang + '/AttributesPopup.html',
+    'leaflet/turf/turf.min'
+], function (declare, lang, array, topic, xhr, i18n, Deferred, string, obj, StyledGeoJsonLayer,
              ParametersVerification, mustache, TooltipTemplate, AttributesPopupTemplate) {
     return declare('entels.ObjectsLayer', [StyledGeoJsonLayer, ParametersVerification], {
         constructor: function () {
