@@ -79,6 +79,7 @@ html.full-screen #map {
     height: 32px;
     background: url("background/languages-icon.png");
 }
+
 #map div.lang-selector div.opened {
     display: none;
 }
@@ -86,6 +87,7 @@ html.full-screen #map {
 #map div.lang-selector:hover div.collapsed {
     display: none;
 }
+
 #map div.lang-selector:hover div.opened {
     display: block;
     margin: 0;
@@ -121,3 +123,6 @@ html.full-screen #map {
     background-color: #d5d5d5;
 }
 
+#map div.easy-button-container img {
+    margin-top: 4px;
+}
