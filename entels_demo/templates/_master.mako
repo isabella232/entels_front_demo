@@ -8,15 +8,20 @@
 
     <link type="text/css" rel="stylesheet"
           href="${request.static_url('entels_demo:static/contrib/materialize/css/customize.css')}"/>
+    <link rel="stylesheet"
+          href="${request.static_url('entels_demo:static/js/leaflet/leaflet.easybutton/easy-button.css')}"/>
     <link rel="stylesheet" href="${request.static_url('entels_demo:static/js/leaflet/leaflet.css')}"/>
     <link rel="stylesheet" href="${request.static_url('entels_demo:static/css/entels/objects-icons.css')}"/>
     <link rel="stylesheet" href="${request.static_url('entels_demo:static/css/entels/styles.css')}"/>
     <link rel="stylesheet"
           href="${request.static_url('entels_demo:static/js/leaflet/leaflet.tooltip/leaflet.tooltip.css')}"/>
     <link rel="stylesheet" href="${request.static_url('entels_demo:static/contrib/prismjs/prism.css')}"/>
+    <link rel="stylesheet"
+          href="http://ajax.googleapis.com/ajax/libs/dojo/1.9.7/dijit/themes/claro/claro.css"/>
+    <link rel="stylesheet" href="${request.static_url('entels_demo:static/js/dgrid/css/dgrid.css')}">
     <%block name="css"/>
 </head>
-<body id="NxgDemo">
+<body id="NxgDemo" class="claro">
         <%block name="content"/>
 </body>
 
@@ -36,13 +41,15 @@
             dojoConfig = {
                 isDebug: true,
                 async: true,
-                cacheBust: true,
-                baseUrl: '${request.static_url('entels_demo:static/js')}',
+                ##                 cacheBust: true,
+                                baseUrl: '${request.static_url('entels_demo:static/js')}',
                 packages: [
                     {name: 'mustache', location: 'mustache'},
                     {name: 'leaflet', location: 'leaflet'},
                     {name: 'entels', location: 'entels'},
-                    {name: 'pages', location: 'pages'}
+                    {name: 'pages', location: 'pages'},
+                    {name: 'dgrid', location: 'dgrid'},
+                    {name: 'dstore', location: 'dstore'}
                 ],
                 has: {
                     'dojo-firebug': true,
