@@ -13,9 +13,9 @@ define([
     'mustache/mustache',
     'dojo/text!entels/templates/' + application_lang + '/Tooltip.html',
     'dojo/text!entels/templates/' + application_lang + '/AttributesPopup.html',
-    'leaflet/turf/turf.min'
+    'leaflet/turf/turf'
 ], function (declare, lang, array, topic, xhr, i18n, Deferred, string, obj, StyledGeoJsonLayer,
-             ParametersVerification, mustache, TooltipTemplate, AttributesPopupTemplate) {
+             ParametersVerification, mustache, TooltipTemplate, AttributesPopupTemplate, turf) {
     return declare('entels.ObjectsLayer', [StyledGeoJsonLayer, ParametersVerification], {
         constructor: function () {
             this.verificateRequiredParameters(this.options, [
@@ -211,6 +211,56 @@ define([
             if (guids.length > 0) {
                 this._ws.send('GET_OBJ ' + guids);
             }
+        },
+
+        getVisibleObjects: function () {
+            var turfPolygonBounds = this._createPolygonFromBounds(),
+                objects = [],
+                pointFeature,
+                firstPoint;
+
+            array.forEach(this.getLayers(), function (layer) {
+                firstPoint = layer.feature.geometry.coordinates[0];
+                pointFeature = {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [firstPoint[0], firstPoint[1]]
+                    }
+                };
+                if (turf.inside(pointFeature, turfPolygonBounds)) {
+                    objects.push(layer.feature);
+                }
+            });
+
+            return objects;
+        },
+
+        _createPolygonFromBounds: function (latLngBounds) {
+            //var center = latLngBounds.getCenter();
+            var latlngs = [],
+                turfLonLat = [];
+
+            if (!latLngBounds) {
+                latLngBounds = this._map.getBounds();
+            }
+
+            latlngs.push(latLngBounds.getSouthWest());//bottom left
+            latlngs.push(latLngBounds.getNorthWest());//top left
+            latlngs.push(latLngBounds.getNorthEast());//top right
+            latlngs.push(latLngBounds.getSouthEast());//bottom right
+            latlngs.push(latLngBounds.getSouthWest());//bottom left
+            //latlngs.push({lat: latLngBounds.getSouth(), lng: center.lng});//bottom center
+            //latlngs.push({lat: center.lat, lng: latLngBounds.getEast()});// center right
+            //latlngs.push({lat: latLngBounds.getNorth(), lng: map.getCenter().lng});//top center
+            //latlngs.push({lat: map.getCenter().lat, lng: latLngBounds.getWest()});//center left
+
+            array.forEach(latlngs, function (latlng) {
+                turfLonLat.push([latlng.lng, latlng.lat]);
+            });
+
+            return turf.polygon([turfLonLat], {});
         }
     });
 });
