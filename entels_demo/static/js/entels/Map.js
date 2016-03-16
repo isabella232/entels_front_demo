@@ -38,6 +38,10 @@ define([
 
             this.buildLoader(domNode);
 
+            L.easyButton('<img class="icon-show-in-bbox" src="' + application_root + '/static/images/bbox_16x16.png">', function(btn, map){
+                helloPopup.setLatLng(map.getCenter()).openOn(map);
+            }).addTo(this._lmap); // probably just `map`
+
             topic.publish("map/created", {created: true});
         },
 
