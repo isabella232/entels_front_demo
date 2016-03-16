@@ -21,7 +21,8 @@ requires = [
     'geoalchemy2',
     'flup',
     'tornado',
-    'sockjs-tornado'
+    'sockjs-tornado',
+    'cornice'
 ]
 
 setup(name='entels_demo',
