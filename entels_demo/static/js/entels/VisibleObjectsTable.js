@@ -3,7 +3,6 @@ define([
     'dojo/_base/array',
     'dojo/query',
     'dojo/topic',
-    'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/_base/html',
     'dijit/_Widget',
@@ -13,10 +12,11 @@ define([
     'dgrid/Grid',
     'dgrid/Keyboard',
     'dgrid/Selection',
+    'dgrid/extensions/ColumnResizer',
     'entels/Dialog'
-], function (declare, array, query, topic, array, lang, html, _Widget,
+], function (declare, array, query, topic, lang, html, _Widget,
              _TemplatedMixin, _WidgetsInTemplateMixin, on,
-             Grid, Keyboard, Selection, Dialog) {
+             Grid, Keyboard, Selection, ColumnResizer, Dialog) {
     return declare([], {
         _objectsLayer: null,
 
@@ -45,7 +45,7 @@ define([
             });
 
             // Create a new constructor by mixing in the components
-            var CustomGrid = declare([Grid, Keyboard, Selection]);
+            var CustomGrid = declare([Grid, Keyboard, Selection, ColumnResizer]);
 
             // Now, create an instance of our custom grid which
             // have the features we added!
