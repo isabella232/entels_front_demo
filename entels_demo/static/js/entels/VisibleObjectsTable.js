@@ -17,16 +17,28 @@ define([
 ], function (declare, array, query, topic, array, lang, html, _Widget,
              _TemplatedMixin, _WidgetsInTemplateMixin, on,
              Grid, Keyboard, Selection, Dialog) {
-    var VisibleObjectTable = declare([], {
-        constructor: function (objectsLayer) {
+    return declare([], {
+        _objectsLayer: null,
 
+        constructor: function (objectsLayer) {
+            this._objectsLayer = objectsLayer;
+            this._bindEvents();
+        },
+
+        _bindEvents: function () {
+            topic.subscribe('entels/open/visible-objects-table', lang.hitch(this, function () {
+                this.open();
+            }));
+        },
+
+        open: function () {
             var dialog = new Dialog({
                     title: 'Отображаемые объекты'
                 }),
                 objects,
                 data = [];
 
-            objects = objectsLayer.getVisibleObjects();
+            objects = this._objectsLayer.getVisibleObjects();
 
             array.forEach(objects, function (object) {
                 data.push(object.properties);
@@ -50,11 +62,6 @@ define([
             grid.renderArray(data);
 
             dialog.show();
-
         }
-    });
-
-    topic.subscribe('entels/open/visible-objects-table', function (objectsLayer) {
-        var table = new VisibleObjectTable(objectsLayer);
     });
 });
