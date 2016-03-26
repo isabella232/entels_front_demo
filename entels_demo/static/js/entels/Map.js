@@ -38,7 +38,19 @@ define([
 
             this.buildLoader(domNode);
 
+            this._bindEvents();
+
             topic.publish("map/created", {created: true});
+        },
+
+        _bindEvents: function () {
+            topic.subscribe('entels/map/zoom-in', lang.hitch(this, function () {
+                this._lmap.zoomIn(1)
+            }));
+
+            topic.subscribe('entels/map/zoom-out', lang.hitch(this, function () {
+                this._lmap.zoomOut(1)
+            }));
         },
 
         _legendBindEvents: function () {
