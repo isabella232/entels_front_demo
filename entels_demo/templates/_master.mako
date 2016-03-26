@@ -19,6 +19,8 @@
     <link rel="stylesheet"
           href="http://ajax.googleapis.com/ajax/libs/dojo/1.9.7/dijit/themes/claro/claro.css"/>
     <link rel="stylesheet" href="${request.static_url('entels_demo:static/js/dgrid/css/dgrid.css')}">
+    <link rel="stylesheet" href="${request.static_url('entels_demo:static/js/leaflet/sidebar-v2/css/leaflet-sidebar.min.css')}">
+    <link rel="stylesheet" href="${request.static_url('entels_demo:static/contrib/font-awesome/css/font-awesome.min.css')}">
     <%block name="css"/>
 </head>
 <body id="NxgDemo" class="claro">

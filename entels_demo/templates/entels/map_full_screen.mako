@@ -3,9 +3,12 @@
 <%block name="html_attrs">class="full-screen"</%block>
 
 <%block name="content">
-    <div id="map">
-        <p class="loaded-status">Построение демо-карты...</p>
-        <%include file="../_languages.mako"/>
+    <div class="map-container">
+        <%include file="sidebar.mako"/>
+        <div id="map">
+            <p class="loaded-status">Построение демо-карты...</p>
+            <%include file="../_languages.mako"/>
+        </div>
     </div>
 </%block>
 

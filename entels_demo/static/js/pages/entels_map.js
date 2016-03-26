@@ -10,9 +10,11 @@ require([
         'entels/ObjectsLayer',
         'pages/entels_map/' + application_lang,
         'dojo/topic',
+        'entels/MapSidebar',
         'entels/VisibleObjectsTable',
         'dojo/domReady!'],
-    function (Map, LayersInfo, NgwServiceFacade, ScadaServiceFacade, ObjectsLayer, translates, topic) {
+    function (Map, LayersInfo, NgwServiceFacade, ScadaServiceFacade, ObjectsLayer,
+              translates, topic, MapSidebar, VisibleObjectsTable) {
             // Создаем и конфигурируем фасад к сервисам NGW
         var ngwServiceFacade = new NgwServiceFacade(proxyNgwUrl),
             // Задаем фасад к сервисам Scada
@@ -21,7 +23,7 @@ require([
             map = new Map('map', {
                 center: [55.529, 37.584],
                 zoom: 7,
-                zoomControl: true,
+                zoomControl: false,
                 legend: false,
                 easyPrint: false
             }),
@@ -40,7 +42,7 @@ require([
             map.addTileLayer('OSM', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 
             // Создаем слой объектов
-            var l = new ObjectsLayer(null, {
+            var objectsLayer = new ObjectsLayer(null, {
                 // Задаем фасад к сервиса NGW
                 ngwServiceFacade: ngwServiceFacade,
                 // Задаем фасад к сервисам Scada
@@ -99,13 +101,13 @@ require([
                 debug: true
             });
 
-            map.addVectorLayer(l, 'Объекты');
+            map.addVectorLayer(objectsLayer, 'Объекты');
 
-            L.easyButton('<img class="icon-show-in-bbox" src="' + application_root + '/static/images/bbox_16x16.png">', function(btn, map){
-                topic.publish('entels/open/visible-objects-table', l);
-            }).addTo(map._lmap);
+            new VisibleObjectsTable(objectsLayer);
 
             // Скрываем иконку загрузки
             map.hideLoader();
+
+            new MapSidebar('sidebar', map);
         });
     });

@@ -30,6 +30,24 @@ html.full-screen #map {
     background: #FFF;
 }
 
+div.map-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#sidebar.sidebar {
+    z-index: 800;
+}
+
+#sidebar.unactive {
+    display: none;
+}
+
+#sidebar li a:focus {
+    outline: none;
+}
+
 #map {
     margin: 3px 0;
     width: 100%;

@@ -7,9 +7,12 @@
                 <h3 class="col s12 header">Демо</h3>
             </div>
             <div class="row">
-                <div id="map">
-                    <p class="loaded-status">Построение демо-карты...</p>
-                    <%include file="../_languages.mako"/>
+                <div class="map-container">
+                    <%include file="sidebar.mako"/>
+                    <div id="map">
+                        <p class="loaded-status">Построение демо-карты...</p>
+                        <%include file="../_languages.mako"/>
+                    </div>
                 </div>
                 <p><a href="${request.route_url('entels_map_full', lang='ru')}">Открыть на весь экран &rarr;</a></p>
             </div>
