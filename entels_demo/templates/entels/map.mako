@@ -1,3 +1,5 @@
+<%block name="title">Карта в теле страницы</%block>
+
 <%inherit file="../_master_materialize.mako"/>
 
 <div class="row">

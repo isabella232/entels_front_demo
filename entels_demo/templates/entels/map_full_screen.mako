@@ -1,3 +1,5 @@
+<%block name="title">Карта на всю страницу</%block>
+
 <%inherit file="../_master.mako"/>
 
 <%block name="html_attrs">class="full-screen"</%block>
