@@ -43,20 +43,14 @@ define([
             array.forEach(objects, function (object) {
                 data.push(object.properties);
             });
-
-            // Create a new constructor by mixing in the components
+            
             var CustomGrid = declare([Grid, Keyboard, Selection, ColumnResizer]);
-
-            // Now, create an instance of our custom grid which
-            // have the features we added!
             var grid = new CustomGrid({
                 columns: {
                     NAME: 'Название',
                     SCADA_ID: 'Код'
                 },
-                // for Selection; only select a single row at a time
                 selectionMode: 'single',
-                // for Keyboard; allow only row-level keyboard navigation
                 cellNavigation: false
             }, 'visibleObjectsTable');
             grid.renderArray(data);
