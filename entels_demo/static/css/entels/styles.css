@@ -48,6 +48,32 @@ div.map-container {
     outline: none;
 }
 
+#sidebar div.search-objects {
+    margin-top: 6px;
+}
+
+#sidebar div.search-objects input {
+    height: 1.2rem;
+}
+
+#sidebar div.search-objects div.input-field {
+    margin-top: 0.6rem;
+}
+
+#sidebar div.search-result-table-wrapper {
+    position: absolute;
+    bottom: 5px;
+    top: 180px;
+    width: 100%;
+}
+
+#searchResultTable {
+    height: 100%;
+    width: 90%;
+    margin: 0;
+    padding: 0;
+}
+
 #map {
     margin: 3px 0;
     width: 100%;
