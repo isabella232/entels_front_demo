@@ -1,3 +1,8 @@
+// todo: remove mock 'entels' object
+entels = {
+    layer: null
+};
+
 require([
         // Модуль карты
         'entels/Map',
@@ -10,11 +15,13 @@ require([
         'entels/ObjectsLayer',
         'pages/entels_map/' + application_lang,
         'dojo/topic',
+        'dojo/parser',
         'entels/MapSidebar',
         'entels/VisibleObjectsTable',
+        'entels/SearchObjects',
         'dojo/domReady!'],
     function (Map, LayersInfo, NgwServiceFacade, ScadaServiceFacade, ObjectsLayer,
-              translates, topic, MapSidebar, VisibleObjectsTable) {
+              translates, topic, parser, MapSidebar, VisibleObjectsTable) {
             // Создаем и конфигурируем фасад к сервисам NGW
         var ngwServiceFacade = new NgwServiceFacade(proxyNgwUrl),
             // Задаем фасад к сервисам Scada
@@ -101,8 +108,12 @@ require([
                 debug: true
             });
 
+            // todo: remove mock 'entels' object
+            entels.layer = objectsLayer;
+
             map.addVectorLayer(objectsLayer, 'Объекты');
 
+            parser.parse();
             new VisibleObjectsTable(objectsLayer);
 
             // Скрываем иконку загрузки
