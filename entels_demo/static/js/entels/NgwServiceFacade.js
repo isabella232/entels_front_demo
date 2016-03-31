@@ -13,7 +13,7 @@ define([
             },
 
             identifyFeaturesByLayers: function (layersIds, wktBounds, srs) {
-                var url = 'geocollection/rosavto?',
+                var url = 'geocollection/entels?',
                     params;
 
                 if (!srs) {
