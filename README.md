@@ -1,4 +1,4 @@
-# entels_demo_front
+# Frontend demo for Entels
 
 License
 -------------
