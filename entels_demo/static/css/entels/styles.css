@@ -40,6 +40,11 @@ div.map-container {
     z-index: 800;
 }
 
+#sidebar.collapsed {
+    bottom: auto;
+    height: 80px;
+}
+
 #sidebar.unactive {
     display: none;
 }
