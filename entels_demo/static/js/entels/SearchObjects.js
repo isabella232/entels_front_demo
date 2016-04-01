@@ -69,6 +69,8 @@ define([
                 data = [],
                 features;
 
+            this.grid.refresh();
+            
             this.layersInfo._ngwServiceFacade.findLayerObjects(layerId, filters)
                 .then(lang.hitch(this, function (objects) {
                     features = objects.features;
