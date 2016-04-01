@@ -4,6 +4,8 @@ define([
     'dojo/on',
     'dojo/parser',
     'dojo/ready',
+    'dojo/topic',
+    'dojo/dom-attr',
     'dojo/_base/lang',
     'dojo/_base/array',
     'dijit/_WidgetBase',
@@ -13,12 +15,20 @@ define([
     'dgrid/Selection',
     'dgrid/extensions/ColumnResizer',
     'dojo/text!./templates/SearchObjects.html'
-], function (declare, dom, on, parser, ready, lang, array, _WidgetBase, _TemplatedMixin,
+], function (declare, dom, on, parser, ready, topic, domAttr, lang, array, _WidgetBase, _TemplatedMixin,
              Grid, Keyboard, Selection, ColumnResizer, template) {
     return declare('entels.SearchObjects', [_WidgetBase, _TemplatedMixin], {
         templateString: template,
         searchBtn: null,
         grid: null,
+        layersInfo: null,
+
+        constructor: function () {
+            topic.subscribe('entels/layersInfo/ready', lang.hitch(this, function (map, layersInfo) {
+                this.map = map;
+                this.layersInfo = layersInfo;
+            }));
+        },
 
         postCreate: function () {
             var CustomGrid = declare([Grid, Keyboard, Selection, ColumnResizer]);
@@ -37,25 +47,47 @@ define([
 
         _setDom: function () {
             this.searchBtn = dom.byId('searchBtn');
+            this.filterCode = dom.byId('searchByCode');
+            this.filterName = dom.byId('searchByName');
         },
 
         _bindEvents: function () {
             on(this.searchBtn, 'click', lang.hitch(this, function () {
                 this._search();
             }));
+            this.grid.on('.dgrid-row:click', lang.hitch(this, function (event) {
+                var feature = this.grid.row(event).data;
+                if (feature.LAT && feature.LONG) {
+                    this.map._lmap.setView(L.latLng(feature.LAT, feature.LONG), 15);
+                }
+            }));
         },
 
         _search: function () {
-            var objects,
-                data = [];
+            var layerId = this.layersInfo.getLayersIdByKeynames(['objects'])[0],
+                filters = this._getFilters(),
+                data = [],
+                features;
 
-            objects = entels.layer.getVisibleObjects();
+            this.layersInfo._ngwServiceFacade.findLayerObjects(layerId, filters)
+                .then(lang.hitch(this, function (objects) {
+                    features = objects.features;
+                    array.forEach(features, function (feature) {
+                        data.push(feature.properties);
+                    }, this);
+                    this.grid.renderArray(data);
+                }));
+        },
 
-            array.forEach(objects, function (object) {
-                data.push(object.properties);
-            });
+        _getFilters: function () {
+            var code = domAttr.get(this.filterCode, 'value'),
+                name = domAttr.get(this.filterName, 'value'),
+                filters = {
+                    'SCADA_ID': code,
+                    'NAME': name
+                };
 
-            this.grid.renderArray(data);
+            return filters;
         }
     });
 });

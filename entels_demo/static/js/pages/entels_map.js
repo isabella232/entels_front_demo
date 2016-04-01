@@ -44,7 +44,6 @@ require([
 
         // Заполняем рекурсивно хранилище информации о слоях LayersInfo
         layersInfo.fillLayersInfo().then(function (store) {
-
             // Подключаем подложку Openstreetmap
             map.addTileLayer('OSM', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 
@@ -120,5 +119,6 @@ require([
             map.hideLoader();
 
             new MapSidebar('sidebar', map);
+            topic.publish('entels/layersInfo/ready', map, layersInfo);
         });
     });
