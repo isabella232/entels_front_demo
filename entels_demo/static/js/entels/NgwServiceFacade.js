@@ -13,7 +13,7 @@ define([
             },
 
             identifyFeaturesByLayers: function (layersIds, wktBounds, srs) {
-                var url = 'geocollection/entels?',
+                var url = 'entels/geocollection?',
                     params;
 
                 if (!srs) {
@@ -42,6 +42,19 @@ define([
                 return xhr(this._ngwUrlBase + url, {
                     handleAs: 'json',
                     method: 'GET',
+                    headers: {
+                        "X-Requested-With": null
+                    }
+                });
+            },
+            
+            findLayerObjects: function (layerId, filter) {
+                var url = 'entels/layer/' + layerId + '/store_api/';
+
+                return xhr(this._ngwUrlBase + url, {
+                    handleAs: 'json',
+                    method: 'POST',
+                    data: filter,
                     headers: {
                         "X-Requested-With": null
                     }
