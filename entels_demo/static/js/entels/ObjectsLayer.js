@@ -70,6 +70,7 @@ define([
             this.removeObject(id);
 
             var markerLayer = this.addObject(geoJsonFeature, style, id);
+            topic.publish('map/objects/style/changed', id, style);
             this._markerLayerBindEvents(markerLayer, geoJsonFeature.properties, style);
         },
 
@@ -251,10 +252,6 @@ define([
             latlngs.push(latLngBounds.getNorthEast());//top right
             latlngs.push(latLngBounds.getSouthEast());//bottom right
             latlngs.push(latLngBounds.getSouthWest());//bottom left
-            //latlngs.push({lat: latLngBounds.getSouth(), lng: center.lng});//bottom center
-            //latlngs.push({lat: center.lat, lng: latLngBounds.getEast()});// center right
-            //latlngs.push({lat: latLngBounds.getNorth(), lng: map.getCenter().lng});//top center
-            //latlngs.push({lat: map.getCenter().lat, lng: latLngBounds.getWest()});//center left
 
             array.forEach(latlngs, function (latlng) {
                 turfLonLat.push([latlng.lng, latlng.lat]);

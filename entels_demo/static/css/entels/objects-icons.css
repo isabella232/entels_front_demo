@@ -2,26 +2,54 @@
     background-image: url("icons/wait.png");
 }
 
+#visibleObjectsTable div.dgrid-row.state-wait {
+    background-color: #fffc8d;
+}
+
 #map div.leaflet-marker-pane div.state-0 {
     background-image: url("icons/0.png");
+}
+
+#visibleObjectsTable div.dgrid-row.state-0 {
+    background-color: white;
 }
 
 #map div.leaflet-marker-pane div.state-1 {
     background-image: url("icons/1.png");
 }
 
+#visibleObjectsTable div.dgrid-row.state-1 {
+    background-color: #ff8580;
+}
+
 #map div.leaflet-marker-pane div.state-2 {
     background-image: url("icons/2.png");
+}
+
+#visibleObjectsTable div.dgrid-row.state-2 {
+    background-color: #ff4b41;
 }
 
 #map div.leaflet-marker-pane div.state-3 {
     background-image: url("icons/3.png");
 }
 
+#visibleObjectsTable div.dgrid-row.state-3 {
+    background-color: #a99200;
+}
+
 #map div.leaflet-marker-pane div.state-4 {
     background-image: url("icons/4.png");
 }
 
+#visibleObjectsTable div.dgrid-row.state-4 {
+    background-color: #ffa8da;
+}
+
 #map div.leaflet-marker-pane div.state-5 {
     background-image: url("icons/5.png");
+}
+
+#visibleObjectsTable div.dgrid-row.state-5 {
+    background-color: #b0ffa3;
 }
