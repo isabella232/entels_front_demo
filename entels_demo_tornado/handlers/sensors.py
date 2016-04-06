@@ -36,7 +36,7 @@ class SensorsHandler(WebSocketHandler):
                 ]
             })
         self.write_message(result)
-        threading.Timer(10, self.get_new).start()
+        threading.Timer(5, self.get_new).start()
 
     def on_close(self):
         print("WebSocket closed")
