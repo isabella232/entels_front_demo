@@ -1,5 +1,9 @@
 # Frontend demo for Entels
 
+Demo is available [here](http://176.9.38.120/entels_widget/full/ru/)
+
+[![http://176.9.38.120/entels_widget/full/ru/](https://raw.githubusercontent.com/nextgis/entels_front_demo/master/entels-demo.gif)](http://176.9.38.120/entels_widget/full/ru/)
+
 License
 -------------
 This program is licensed under GNU GPL v2 or any later version
