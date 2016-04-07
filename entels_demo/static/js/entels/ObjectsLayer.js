@@ -141,20 +141,16 @@ define([
                         var objectProps = objectsGeometry.features[i].properties,
                             object_guid = objectProps[this.options.fieldId];
 
-                        // if (this.layersById[object_guid]) {
-                        //     continue;
-                        // }
-
                         guids.push(object_guid);
                         var markerLayer = this.addObject(objectsGeometry.features[i], 'wait', objectsGeometry.features[i].properties['SCADA_ID']);
                         this._markerLayerBindEvents(markerLayer, objectProps, 'wait');
                     }
 
-                    console.log(count);
-
                     if (this._ws) {
                         this._addNewObjsToSubsrcibe(guids);
                     }
+
+                    topic.publish('map/objects/rendered');
 
                     deferred.resolve(guids);
                 }));

@@ -21,33 +21,15 @@ define([
              Grid, Keyboard, Selection, ColumnResizer, Dialog) {
     return declare([], {
         _objectsLayer: null,
+        _objectChangedHandler: null,
+        _objectsRenderedHandler: null,
+        _grid: null,
 
-        constructor: function (objectsLayer) {
+        constructor: function (divId, objectsLayer) {
             this._objectsLayer = objectsLayer;
-            this._bindEvents();
-        },
-
-        _bindEvents: function () {
-            topic.subscribe('entels/open/visible-objects-table', lang.hitch(this, function () {
-                this.open();
-            }));
-        },
-
-        open: function () {
-            var dialog = new Dialog({
-                    title: 'Отображаемые объекты'
-                }),
-                objects,
-                data = [];
-
-            objects = this._objectsLayer.getVisibleObjects();
-
-            array.forEach(objects, function (object) {
-                data.push(object.properties);
-            });
-
+            
             var CustomGrid = declare([Grid, Keyboard, Selection, ColumnResizer]);
-            var grid = new CustomGrid({
+            this._grid = new CustomGrid({
                 id: 'visibleObjectsTable',
                 columns: {
                     SCADA_ID: 'Код',
@@ -55,34 +37,62 @@ define([
                 },
                 selectionMode: 'single',
                 cellNavigation: false
-            }, 'visibleObjectsTable');
-
-            grid.objects = {};
+            }, divId);
             
-            aspect.after(grid, "renderRow", function (row, args) {
+            this._grid.objects = {};
+            
+            aspect.after(this._grid, "renderRow", lang.hitch(this, function (row, args) {
                 var feature = args[0],
                     state = feature.__type;
                 domAttr.set(row, 'data-state', state);
                 domClass.add(row, 'state-' + state);
-                grid.objects[feature.SCADA_ID] = row;
+                this._grid.objects[feature.SCADA_ID] = row;
                 return row;
-            });
-
-            grid.renderArray(data);
-
-            var changedSubscriber = topic.subscribe('map/objects/style/changed', function (id, state) {
-                var row = grid.objects[id];
+            }));
+        },
+        
+        activate: function () {
+            this.fillObjects();
+            this._objectChangedHandler = topic.subscribe('map/objects/style/changed', lang.hitch(this, function (id, state) {
+                var row = this._grid.objects[id];
                 if (row) {
                     domAttr.set(row, 'data-state', state);
                     domClass.add(row, 'state-' + state);
                 }
+            }));
+            
+            this._objectsRenderedHandler = topic.subscribe('map/objects/rendered', lang.hitch(this, function () {
+                this.fillObjects();
+            }));
+        },
+        
+        deactivate: function () {
+            if (this._objectChangedHandler) {
+                this._objectChangedHandler.remove();
+            }
+            if (this._objectsRenderedHandler) {
+                this._objectChangedHandler.remove();
+            }
+            this.clear();
+        },
+        
+        fillObjects: function () {
+            var data = [],
+                objects = this._objectsLayer.getVisibleObjects();
+            
+            array.forEach(objects, function (object) {
+                data.push(object.properties);
             });
+            
+            this._grid.objects = {};
 
-            aspect.before(dialog, "hide", function () {
-                console.log(changedSubscriber);
-            });
-
-            dialog.show();
+            this._grid.refresh();
+            this._grid.renderArray(data);
+        },
+        
+        clear: function () {
+            this._grid.refresh();
+            this._grid.renderArray([]);
         }
     });
 });

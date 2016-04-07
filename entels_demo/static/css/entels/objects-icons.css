@@ -2,7 +2,7 @@
     background-image: url("icons/wait.png");
 }
 
-#visibleObjectsTable div.dgrid-row.state-wait {
+#sidebarVisibleObjectsTable div.dgrid-row.state-wait {
     background-color: #fffc8d;
 }
 
@@ -10,7 +10,7 @@
     background-image: url("icons/0.png");
 }
 
-#visibleObjectsTable div.dgrid-row.state-0 {
+#sidebarVisibleObjectsTable div.dgrid-row.state-0 {
     background-color: white;
 }
 
@@ -18,7 +18,7 @@
     background-image: url("icons/1.png");
 }
 
-#visibleObjectsTable div.dgrid-row.state-1 {
+#sidebarVisibleObjectsTable div.dgrid-row.state-1 {
     background-color: #ff8580;
 }
 
@@ -26,7 +26,7 @@
     background-image: url("icons/2.png");
 }
 
-#visibleObjectsTable div.dgrid-row.state-2 {
+#sidebarVisibleObjectsTable div.dgrid-row.state-2 {
     background-color: #ff4b41;
 }
 
@@ -34,7 +34,7 @@
     background-image: url("icons/3.png");
 }
 
-#visibleObjectsTable div.dgrid-row.state-3 {
+#sidebarVisibleObjectsTable div.dgrid-row.state-3 {
     background-color: #a99200;
 }
 
@@ -42,7 +42,7 @@
     background-image: url("icons/4.png");
 }
 
-#visibleObjectsTable div.dgrid-row.state-4 {
+#sidebarVisibleObjectsTable div.dgrid-row.state-4 {
     background-color: #ffa8da;
 }
 
@@ -50,6 +50,6 @@
     background-image: url("icons/5.png");
 }
 
-#visibleObjectsTable div.dgrid-row.state-5 {
+#sidebarVisibleObjectsTable div.dgrid-row.state-5 {
     background-color: #b0ffa3;
 }

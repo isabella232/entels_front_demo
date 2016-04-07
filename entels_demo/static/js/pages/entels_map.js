@@ -17,11 +17,10 @@ require([
         'dojo/topic',
         'dojo/parser',
         'entels/MapSidebar',
-        'entels/VisibleObjectsTable',
         'entels/SearchObjects',
         'dojo/domReady!'],
     function (Map, LayersInfo, NgwServiceFacade, ScadaServiceFacade, ObjectsLayer,
-              translates, topic, parser, MapSidebar, VisibleObjectsTable) {
+              translates, topic, parser, MapSidebar) {
             // Создаем и конфигурируем фасад к сервисам NGW
         var ngwServiceFacade = new NgwServiceFacade(proxyNgwUrl),
             // Задаем фасад к сервисам Scada
@@ -113,12 +112,11 @@ require([
             map.addVectorLayer(objectsLayer, 'Объекты');
 
             parser.parse();
-            new VisibleObjectsTable(objectsLayer);
 
             // Скрываем иконку загрузки
             map.hideLoader();
 
-            new MapSidebar('sidebar', map);
+            new MapSidebar('sidebar', map, objectsLayer);
             topic.publish('entels/layersInfo/ready', map, layersInfo);
         });
     });

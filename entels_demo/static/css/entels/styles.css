@@ -79,6 +79,15 @@ div.map-container {
     padding: 0;
 }
 
+#sidebarVisibleObjectsTable {
+    position: absolute;
+    top: 45px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    height: auto;
+}
+
 #map {
     margin: 3px 0;
     width: 100%;
