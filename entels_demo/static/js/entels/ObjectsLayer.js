@@ -48,11 +48,11 @@ define([
         },
 
         _hookMap: function (map) {
-            map.on('moveend zoomend', this._buildObjects, this);
+            map.on('moveend', this._buildObjects, this);
         },
 
         _unhookMap: function (map) {
-            map.off('moveend zoomend', this._buildObjects, this);
+            map.off('moveend', this._buildObjects, this);
         },
 
         _changeStyle: function (id, style) {
@@ -134,20 +134,23 @@ define([
 
             this.options.ngwServiceFacade.identifyFeaturesByLayers([this._objects_layer_id], extent3857, 3857)
                 .then(lang.hitch(this, function (objectsGeometry) {
+                    this.clearLayers();
                     var guids = [];
 
                     for (var i = 0, count = objectsGeometry.features.length; i < count; i++) {
                         var objectProps = objectsGeometry.features[i].properties,
                             object_guid = objectProps[this.options.fieldId];
 
-                        if (this.layersById[object_guid]) {
-                            continue;
-                        }
+                        // if (this.layersById[object_guid]) {
+                        //     continue;
+                        // }
 
                         guids.push(object_guid);
                         var markerLayer = this.addObject(objectsGeometry.features[i], 'wait', objectsGeometry.features[i].properties['SCADA_ID']);
                         this._markerLayerBindEvents(markerLayer, objectProps, 'wait');
                     }
+
+                    console.log(count);
 
                     if (this._ws) {
                         this._addNewObjsToSubsrcibe(guids);
@@ -190,6 +193,7 @@ define([
                             }
                         }, this);
                     }
+                    console.log('web_socket: ' + l);
                 } catch (err) {
                     if (this.options.debug) {
                         console.log(err);
