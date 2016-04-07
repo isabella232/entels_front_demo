@@ -54,8 +54,11 @@ define([
         activate: function () {
             this.fillObjects();
             this._objectChangedHandler = topic.subscribe('map/objects/style/changed', lang.hitch(this, function (id, state) {
-                var row = this._grid.objects[id];
+                var row = this._grid.objects[id],
+                    oldState;
                 if (row) {
+                    oldState = domAttr.get(row, 'data-state');
+                    domClass.remove(row, 'state-' + oldState);
                     domAttr.set(row, 'data-state', state);
                     domClass.add(row, 'state-' + state);
                 }
