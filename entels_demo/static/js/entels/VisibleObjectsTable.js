@@ -71,6 +71,11 @@ define([
             grid.renderArray(data);
 
             var changedSubscriber = topic.subscribe('map/objects/style/changed', function (id, state) {
+                var row = grid.objects[id];
+                if (row) {
+                    domAttr.set(row, 'data-state', state);
+                    domClass.add(row, 'state-' + state);
+                }
             });
 
             aspect.before(dialog, "hide", function () {
