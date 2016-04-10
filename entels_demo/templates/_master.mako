@@ -17,7 +17,7 @@
           href="${request.static_url('entels_demo:static/js/leaflet/leaflet.tooltip/leaflet.tooltip.css')}"/>
     <link rel="stylesheet" href="${request.static_url('entels_demo:static/contrib/prismjs/prism.css')}"/>
     <link rel="stylesheet"
-          href="http://ajax.googleapis.com/ajax/libs/dojo/1.9.7/dijit/themes/claro/claro.css"/>
+          href="${request.static_url('entels_demo:static/contrib/dijit/themes/claro/claro.css')}"/>
     <link rel="stylesheet" href="${request.static_url('entels_demo:static/js/dgrid/css/dgrid.css')}">
     <link rel="stylesheet" href="${request.static_url('entels_demo:static/js/leaflet/sidebar-v2/css/leaflet-sidebar.min.css')}">
     <link rel="stylesheet" href="${request.static_url('entels_demo:static/contrib/font-awesome/css/font-awesome.min.css')}">
@@ -44,14 +44,17 @@
                 isDebug: true,
                 async: true,
                 ##                 cacheBust: true,
-                                baseUrl: '${request.static_url('entels_demo:static/js')}',
+                baseUrl: '${request.static_url('entels_demo:static/')}',
                 packages: [
-                    {name: 'mustache', location: 'mustache'},
-                    {name: 'leaflet', location: 'leaflet'},
-                    {name: 'entels', location: 'entels'},
-                    {name: 'pages', location: 'pages'},
-                    {name: 'dgrid', location: 'dgrid'},
-                    {name: 'dstore', location: 'dstore'}
+                    {name: 'mustache', location: 'js/mustache'},
+                    {name: 'leaflet', location: 'js/leaflet'},
+                    {name: 'entels', location: 'js/entels'},
+                    {name: 'pages', location: 'js/pages'},
+                    {name: 'dgrid', location: 'js/dgrid'},
+                    {name: 'dijit', location: 'contrib/dijit'},
+                    {name: 'dojox', location: 'contrib/dojox'},
+                    {name: 'dojo', location: 'contrib/dojo'},
+                    {name: 'dstore', location: 'js/dstore'}
                 ],
                 has: {
                     'dojo-firebug': true,
@@ -60,6 +63,6 @@
             };
 </script>
 <script src="${request.static_url('entels_demo:static/contrib/prismjs/prism.js')}"></script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.9.7/dojo/dojo.js"></script>
+<script src="${request.static_url('entels_demo:static/contrib/dojo/dojo.js')}"></script>
     <%block name="inlineScripts"/>
 </html>
