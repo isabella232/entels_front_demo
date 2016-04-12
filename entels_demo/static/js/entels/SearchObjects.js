@@ -57,8 +57,8 @@ define([
             }));
             this.grid.on('.dgrid-row:click', lang.hitch(this, function (event) {
                 var feature = this.grid.row(event).data;
-                if (feature.LAT && feature.LONG) {
-                    this.map._lmap.setView(L.latLng(feature.LAT, feature.LONG), 15);
+                if (feature._geometry) {
+                    this.map._lmap.setView(L.latLng(feature._geometry[1], feature._geometry[0]), 15);
                 }
             }));
         },
@@ -67,15 +67,18 @@ define([
             var layerId = this.layersInfo.getLayersIdByKeynames(['objects'])[0],
                 filters = this._getFilters(),
                 data = [],
-                features;
+                features,
+                row_feature;
 
             this.grid.refresh();
-            
+
             this.layersInfo._ngwServiceFacade.findLayerObjects(layerId, filters)
                 .then(lang.hitch(this, function (objects) {
                     features = objects.features;
                     array.forEach(features, function (feature) {
-                        data.push(feature.properties);
+                        row_feature = feature.properties;
+                        row_feature._geometry = feature.geometry.coordinates[0];
+                        data.push(row_feature);
                     }, this);
                     this.grid.renderArray(data);
                 }));
