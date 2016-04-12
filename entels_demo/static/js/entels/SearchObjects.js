@@ -68,7 +68,7 @@ define([
                 filters = this._getFilters(),
                 data = [],
                 features,
-                row_feature;
+                row_data;
 
             this.grid.refresh();
 
@@ -76,9 +76,9 @@ define([
                 .then(lang.hitch(this, function (objects) {
                     features = objects.features;
                     array.forEach(features, function (feature) {
-                        row_feature = feature.properties;
-                        row_feature._geometry = feature.geometry.coordinates[0];
-                        data.push(row_feature);
+                        row_data = feature.properties;
+                        row_data._geometry = feature.geometry.coordinates[0];
+                        data.push(row_data);
                     }, this);
                     this.grid.renderArray(data);
                 }));
