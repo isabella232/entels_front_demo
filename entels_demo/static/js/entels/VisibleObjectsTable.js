@@ -49,6 +49,13 @@ define([
                 this._grid.objects[feature.SCADA_ID] = row;
                 return row;
             }));
+
+            this._grid.on('.dgrid-row:click', lang.hitch(this, function (event) {
+                var feature = this._grid.row(event).data;
+                if (feature._geometry) {
+                    objectsLayer._map.setView(L.latLng(feature._geometry[1], feature._geometry[0]), 15);
+                }
+            }));
         },
         
         activate: function () {
@@ -81,10 +88,13 @@ define([
         
         fillObjects: function () {
             var data = [],
-                objects = this._objectsLayer.getVisibleObjects();
+                objects = this._objectsLayer.getVisibleObjects(),
+                row_data;
             
             array.forEach(objects, function (object) {
-                data.push(object.properties);
+                row_data = object.properties;
+                row_data._geometry = object.geometry.coordinates[0];
+                data.push(row_data);
             });
             
             this._grid.objects = {};
