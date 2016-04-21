@@ -26,7 +26,7 @@ requires = [
 ]
 
 setup(name='entels_demo',
-      version='0.0',
+      version='0.2',
       description='Entels demo widget',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
