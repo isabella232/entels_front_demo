@@ -59,6 +59,10 @@ define([
             var layer = this.layersById[id];
             if (!layer) return false;
 
+            if (layer.feature.properties.__type === style) {
+                return false;
+            }
+
             var geoJsonFeature = lang.clone(layer.feature);
             if (this.tooltips[id]) {
                 array.forEach(this.tooltips[id], function (tooltip) {
