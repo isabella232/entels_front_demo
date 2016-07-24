@@ -8,7 +8,6 @@ define([
             var self = this;
 
             this.layersById = {};
-            this.markersById = {};
 
             this.options.pointToLayer = function (feature, latlng) {
                 return self.pointToLayer(feature, latlng);
