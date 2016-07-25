@@ -138,7 +138,6 @@ define([
 
             this.options.ngwServiceFacade.identifyFeaturesByLayers([this._objects_layer_id], extent3857, 3857)
                 .then(lang.hitch(this, function (objectsGeometry) {
-                    this.clearLayers();
                     var guids = [];
 
                     for (var i = 0, count = objectsGeometry.features.length; i < count; i++) {
@@ -146,7 +145,12 @@ define([
                             object_guid = objectProps[this.options.fieldId];
 
                         guids.push(object_guid);
-                        var markerLayer = this.addObject(objectsGeometry.features[i], 'wait', objectsGeometry.features[i].properties['SCADA_ID']);
+
+                        if (this.getObjectById(object_guid)) {
+                            continue;
+                        }
+
+                        var markerLayer = this.addObject(objectsGeometry.features[i], 'wait', object_guid);
                         this._markerLayerBindEvents(markerLayer, objectProps, 'wait');
                     }
 
