@@ -134,11 +134,13 @@ define([
                     _northEast: L.CRS.EPSG3857.project(bounds._northEast)
                 },
                 extent3857 = [bounds3857._southWest.x, bounds3857._southWest.y, bounds3857._northEast.x, bounds3857._northEast.y],
-                deferred = new Deferred();
+                deferred = new Deferred(),
+                timestamp = Date.now();
 
             this.options.ngwServiceFacade.identifyFeaturesByLayers([this._objects_layer_id], extent3857, 3857)
                 .then(lang.hitch(this, function (objectsGeometry) {
-                    var guids = [];
+                    var guids = [],
+                        currentObject;
 
                     for (var i = 0, count = objectsGeometry.features.length; i < count; i++) {
                         var objectProps = objectsGeometry.features[i].properties,
@@ -146,17 +148,20 @@ define([
 
                         guids.push(object_guid);
 
-                        if (this.getObjectById(object_guid)) {
-                            continue;
+                        currentObject = this.getObjectById(object_guid);
+                        if (!currentObject) {
+                            currentObject = this.addObject(objectsGeometry.features[i], 'wait', object_guid);
+                            this._markerLayerBindEvents(currentObject, objectProps, 'wait');
                         }
 
-                        var markerLayer = this.addObject(objectsGeometry.features[i], 'wait', object_guid);
-                        this._markerLayerBindEvents(markerLayer, objectProps, 'wait');
+                        this.layersById[object_guid].__ts = timestamp;
                     }
 
                     if (this._ws) {
                         this._addNewObjsToSubsrcibe(guids);
                     }
+
+                    this._removeHidingObjects(timestamp);
 
                     topic.publish('map/objects/rendered');
 
@@ -164,6 +169,20 @@ define([
                 }));
 
             return deferred.promise;
+        },
+
+        _removeHidingObjects: function (timestamp) {
+            var objects = this.layersById,
+                objectId,
+                objectLayer;
+
+            for (objectId in objects) {
+                objectLayer = objects[objectId];
+                if (objectLayer.__ts !== timestamp) {
+                    this.removeLayer(objectLayer);
+                    delete objects[objectId];
+                }
+            }
         },
 
         _checkWebSocketSupport: function () {
