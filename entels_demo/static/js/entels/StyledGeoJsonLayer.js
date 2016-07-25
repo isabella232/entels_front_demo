@@ -174,6 +174,14 @@ define([
                 }
             }
             return markers;
+        },
+
+        getObjectById: function (id) {
+            if (this.layersById[id]) {
+                return this.layersById[id];
+            } else {
+                return false;
+            }
         }
     });
 });
