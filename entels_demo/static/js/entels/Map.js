@@ -147,6 +147,14 @@ define([
             this.addTileLayer('Openstreetmap', osmUrl, settingsOsmLayer);
         },
 
+        addSputnikLayer: function () {
+            var sputnikUrl = 'http://tiles.maps.sputnik.ru/{z}/{x}/{y}.png',
+                settingSputnikLayer = {
+                    attribution: '<a href="http://maps.sputnik.ru/">Спутник</a> | &copy; Ростелеком | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                };
+            this.addTileLayer('Sputnik', sputnikUrl, settingSputnikLayer);
+        },
+
         addBaseLayers: function (baseLayers) {
             if (!baseLayers.baseLayers || !baseLayers.baseLayers.default_layer) {
                 return false;
