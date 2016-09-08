@@ -43,8 +43,8 @@ require([
 
         // Заполняем рекурсивно хранилище информации о слоях LayersInfo
         layersInfo.fillLayersInfo().then(function (store) {
-            // Подключаем подложку Openstreetmap
-            map.addTileLayer('OSM', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+            // Подключаем подложку Sputnik.ru
+            map.addSputnikLayer();
 
             // Создаем слой объектов
             var objectsLayer = new ObjectsLayer(null, {
