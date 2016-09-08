@@ -7,6 +7,9 @@ define([], function () {
         '3': 'SCADA: undefined state',
         '4': 'SCADA: no communication with the object',
         '5': 'SCADA: there is a connection with the object',
+        '6': 'CommSrv: no connection to the CommSrv',
+        '7': 'CommSrv: no communication with the object',
+        '8': 'CommSrv: there is a connection with the object',
         popupErrorMessage: 'Error connecting to the SCADA server',
         wsSupportErrorMessage: 'Your browser does not support Web Sockets! Functionality is limited.'
     };

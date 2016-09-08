@@ -53,3 +53,29 @@
 #sidebarVisibleObjectsTable div.dgrid-row.state-5 {
     background-color: #b0ffa3;
 }
+
+#map div.leaflet-marker-pane div.state-6 {
+    background-image: url("icons/6.png");
+}
+
+#sidebarVisibleObjectsTable div.dgrid-row.state-6 {
+    background-color: #a99200;
+}
+
+
+#map div.leaflet-marker-pane div.state-7 {
+    background-image: url("icons/7.png");
+}
+
+#sidebarVisibleObjectsTable div.dgrid-row.state-7 {
+    background-color: #ffa8da;
+}
+
+
+#map div.leaflet-marker-pane div.state-8 {
+    background-image: url("icons/8.png");
+}
+
+#sidebarVisibleObjectsTable div.dgrid-row.state-8 {
+    background-color: #b0ffa3;
+}

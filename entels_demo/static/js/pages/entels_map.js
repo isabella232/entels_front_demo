@@ -71,7 +71,10 @@ require([
                     '2': translates['2'],
                     '3': translates['3'],
                     '4': translates['4'],
-                    '5': translates['5']
+                    '5': translates['5'],
+                    '6': translates['6'],
+                    '7': translates['7'],
+                    '8': translates['8']
                 },
                 styles: {
                     'wait': {
@@ -94,6 +97,15 @@ require([
                     },
                     '5': {
                         point: {type: 'div', className: 'state-5', iconSize: [24, 24]}
+                    },
+                    '6': {
+                        point: {type: 'div', className: 'state-6', iconSize: [32, 32]}
+                    },
+                    '7': {
+                        point: {type: 'div', className: 'state-7', iconSize: [32, 32]}
+                    },
+                    '8': {
+                        point: {type: 'div', className: 'state-8', iconSize: [32, 32]}
                     }
                 },
                 // Сообщение в попапе
