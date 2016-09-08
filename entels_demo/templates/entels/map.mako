@@ -13,7 +13,6 @@
                     <%include file="sidebar.mako"/>
                     <div id="map">
                         <p class="loaded-status">Построение демо-карты...</p>
-                        <%include file="../_languages.mako"/>
                     </div>
                 </div>
                 <p><a href="${request.route_url('entels_map_full', lang='ru')}">Открыть на весь экран &rarr;</a></p>

@@ -9,7 +9,6 @@
         <%include file="sidebar.mako"/>
         <div id="map">
             <p class="loaded-status">Построение демо-карты...</p>
-            <%include file="../_languages.mako"/>
         </div>
     </div>
 </%block>
