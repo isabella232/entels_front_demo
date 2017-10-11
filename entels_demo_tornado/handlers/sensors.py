@@ -25,6 +25,7 @@ class SensorsHandler(WebSocketHandler):
                 self.get_new(thread_label, parts[1])
 
     def get_new(self, thread_label, guids=None):
+        time.sleep(5)
         if guids:
             self.guids = guids.split(',')
 
